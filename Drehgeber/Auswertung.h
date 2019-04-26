@@ -1,0 +1,12 @@
+
+#ifndef _Auswertung_H
+#define _Auswertung_H
+
+#include <stdint.h>
+
+#define Winkel_pro_Puls 0.3 // 360/1200
+
+int8_t berechneWinkel(uint8_t counter, float* winkel); // 
+int8_t gibWinkelgeschwindigkeit(float winkel, float *geschwindigkeit); // 
+
+#endif
