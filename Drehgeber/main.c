@@ -64,6 +64,7 @@ int main(void)
         //Auswertung
 			  
         pulse_count = state_table[curr_state](dg_state, &ptr_dir);
+		berechneWinkel(pulse_count, &Dreh_Winkel);
 	      
         if(checkUpdateFlag())
 				{
