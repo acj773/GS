@@ -10,46 +10,50 @@
 
 #include "input.h"
 
-bool A;
-bool B;
 
-void givePinA(void)
+bool givePinA(void)
 {
-	bool gpioe_Pin_0 = IDR_MASK_PIN_0 != (GPIOE -> IDR & IDR_MASK_PIN_0);
-	A = gpioe_Pin_0;   
+	bool gpio_Pin0_pressed = ( IDR_MASK_PIN_0 != (GPIOE -> IDR & IDR_MASK_PIN_0) );
+	return gpio_Pin0_pressed;
 }
 
-void givePinB(void)
+bool givePinB(void)
 {
-    bool gpioe_Pin_1 = IDR_MASK_PIN_1 != (GPIOE -> IDR & IDR_MASK_PIN_1);
-    B =  gpioe_Pin_1;
+	bool gpioe_Pin1_pressed = IDR_MASK_PIN_1 != (GPIOE -> IDR & IDR_MASK_PIN_1);
+  return gpioe_Pin1_pressed;
 }
 
 
-int8_t signalLesen (uint8_t *dg_state)
+int8_t signalLesen (uint8_t *dg_state, bool* s6, bool* s7)
 {
 	
-	givePinA();
-	givePinB();
+	*s6 = pin6_Pressed();
+	*s7 = pin7_Pressed();
 	
-	if (A == 0 && B == 0)    // 00, Phase A,  (!A && !B)
+	bool A = givePinA();
+	bool B = givePinB();
+	
+	if ( !A && !B )          // (A == 0 && B == 0)
 	{
-		*dg_state = 0 ;        // Phase a, A_P
+		*dg_state = 0 ;        // Phase a
 	}
-  if (A == 0 && B == 1 )   // 01, Phase D,	(!A && B )
+  else if ( !A && B )           // (A == 0 && B == 1 ) 
 	{
-		*dg_state = 1 ;        // Phase b, D_P
+		*dg_state = 1 ;        // Phase b
 	}
-  if ( A == 1 && B == 0)   // 10, Phase B,	( A && !B)
+  else if ( A && !B )           // ( A == 1 && B == 0)
 	{
 		*dg_state = 2;         // Phase c
 	}
-  if ( A == 1 && B == 1 )  // 11, Phase C,  ( A && B )
+  else if ( A && B )            // ( A == 1 && B == 1 )
 	{
-		*dg_state = 3 ;        //Phase d,  C_P
+		*dg_state = 3 ;        // Phase d
 	}
-	return E_P;
-
+	else
+	{
+		return E_P;
+	}
+	return 0;
 }
 
 bool pin6_Pressed(void)

@@ -13,15 +13,27 @@
 #ifndef _FSM_H
 #define _FSM_H
 
+
+#include "TI_memory_map.h"
+#include "timer.h"
+
+
+#define MASK_PIN_5 (0x01U << 5) //error laempchen
+
+
+
+
+
 typedef enum {START = 0, A_P, B_P, C_P, D_P, E_P} State_Type;
 
 //Deklarationen der Zustandsfunktionen
-uint16_t s_p(uint8_t, uint8_t *);// Start-Phase.
-uint16_t a_p(uint8_t, uint8_t *);// A-Phase-Fkt.
-uint16_t b_p(uint8_t, uint8_t *);
-uint16_t c_p(uint8_t, uint8_t *);
-uint16_t d_p(uint8_t, uint8_t *);
-uint16_t e_p(uint8_t, uint8_t *);// Fehler Phase
+//@param (dg_state,ptr_dir,pulse_conter,s6,s7)
+int8_t s_p(uint8_t, uint8_t *, int16_t *, int8_t, int8_t);// Start-Phase.
+int8_t a_p(uint8_t, uint8_t *, int16_t *, int8_t, int8_t);// A-Phase-Fkt.
+int8_t b_p(uint8_t, uint8_t *, int16_t *, int8_t, int8_t);
+int8_t c_p(uint8_t, uint8_t *, int16_t *, int8_t, int8_t);
+int8_t d_p(uint8_t, uint8_t *, int16_t *, int8_t, int8_t);
+int8_t e_p(uint8_t, uint8_t *, int16_t *, int8_t, int8_t);// Fehler Phase
 
 // Initialisierung des Pointer-Arrays mit Fkt.-Namen
 

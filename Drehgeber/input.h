@@ -9,7 +9,8 @@
   
 #include <stdbool.h>
 #include <stdio.h>
-
+//#include <stm32f4xx.h>
+//#include <stm32f10x.h>
 #include "TI_memory_map.h"
 #include "FSM.h"
 
@@ -18,8 +19,10 @@
 #define IDR_MASK_PIN_7   (0x01U << 7)
 #define IDR_MASK_PIN_6   (0x01U << 6)
 
-//int8_t signalLesen (void);
-int8_t signalLesen (uint8_t*);
-void givePinA(void);
-void givePinB(void);
-//int8_t gib_dg_state(*, *char);
+
+int8_t signalLesen (uint8_t*, bool*, bool*);
+bool givePinA(void);
+bool givePinB(void);
+
+bool pin6_Pressed(void);
+bool pin7_Pressed(void);

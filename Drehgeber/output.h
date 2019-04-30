@@ -8,6 +8,7 @@
   */
 
 #include "tft.h"
+#include "stdint.h"
 
 #define FONT 		   2  //Paramenter für die Wertefenster
 #define	INPUTX		 21
@@ -20,10 +21,12 @@
 #define	WIDTHI 		 40
 #define	ROWSI		   7
 
-#define	RECHT      0 // Richtung der Drehgeber
-#define LINKS      1
+#define	RIGHT      1 // Richtung der Drehgeber
+#define LEFT      2
 
-
+#define MASK_PIN_8_15		  (0xFFU << 8)
+#define MASK_PIN_7   (0x01U << 7)
+#define MASK_PIN_6   (0x01U << 6)
 
 #ifndef _OUTPUT_H
 #define _OUTPUT_H
@@ -33,7 +36,9 @@ void print_speed(void);
 
 void turnOnLED(void);
 
+void LEDs_Richtung(uint8_t);
+void counter_LED_8_15(int16_t);
 
-
+void printausgabe(float,float);
 #endif
 

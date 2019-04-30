@@ -11,7 +11,7 @@
 #include "output.h"
 #include "Input.h"
 
-
+char buffer[12];
 void init_display(void)
 {
 	TFT_set_window(FONT, INPUTXI, INPUTYI, WIDTHI, ROWSI);
@@ -31,28 +31,28 @@ void init_display(void)
 }
 
 
-void richtungLED(uint8_t dir){
-		if(dir == LINKS){
-			
-		}
-		else if(dir == RECHT){
-		
-		}
-		else{
-		
-		}
+
+void LEDs_Richtung(uint8_t dir) //(richtung)
+{
+	if(dir == LEFT)
+	{
+		GPIOG->BSRRL = MASK_PIN_7;
+		GPIOG->BSRRH = MASK_PIN_6;
+	}
+	else if(dir == RIGHT)
+	{
+		GPIOG->BSRRL = MASK_PIN_6;
+		GPIOG->BSRRH = MASK_PIN_7;
+	}
 }
 
-/*
-void turnOnLED(void){
-	
-if(pin6_Pressed){
-
+void counter_LED_8_15(int16_t counter)
+{
+	GPIOG->BSRRH = MASK_PIN_8_15; // LEDs off
+	GPIOG->BSRRL = counter << 8; 	// LEDs on
 }
 
-if(pin7_Pressed){
+void printausgabe(float wert,float wert2){
+	snprintf(buffer, 12, "%.1f\n\r ,%.1f", wert,wert2);
 	
 }
-	
-}
-*/

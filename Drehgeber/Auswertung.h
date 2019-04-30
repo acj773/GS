@@ -3,10 +3,17 @@
 #define _Auswertung_H
 
 #include <stdint.h>
+#include <stdio.h>
+#include "timer.h"
 
-#define Winkel_pro_Puls 0.3 // 360/1200
+#define MAX_PULSE_COUNT 1200
+#define WINKEL_360_GRAD 360
 
-int8_t berechneWinkel(uint8_t counter, float* winkel); // 
-int8_t gibWinkelgeschwindigkeit(float winkel, float *geschwindigkeit); // 
+int8_t berechne_Winkel(int16_t counter, int16_t* winkel); 
+
+void berechne_Winkelgeschwindigkeit(int16_t winkel, int16_t *geschwindigkeit); 
+
+
+
 
 #endif
